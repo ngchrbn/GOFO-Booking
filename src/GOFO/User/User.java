@@ -1,6 +1,7 @@
 package GOFO.User;
 
 import GOFO.Utilities.Address;
+import GOFO.Utilities.Ewallet;
 
 public class User {
     private String fName;
@@ -10,9 +11,12 @@ public class User {
     private String password;
     private String phoneNumber;
     private Address address;
+    private Ewallet ewallet;
     public User(){}
 
-    public User(String fName, String lName, String id, String email, String password, String phoneNumber, Address address) {
+    public User(String fName, String lName, String id, String email,
+                String password, String phoneNumber, Address address,
+                Ewallet ewallet) {
         setFName(fName);
         setlName(lName);
         setId(id);
@@ -50,6 +54,14 @@ public class User {
         this.address = address;
     }
 
+    /**
+     * Set user ewallet
+     * @param ewallet user ewallet
+     */
+    public void setEwallet(Ewallet ewallet) {
+        this.ewallet = ewallet;
+    }
+
     public String getFName() {
         return fName;
     }
@@ -76,6 +88,14 @@ public class User {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Returns user ewallet
+     * @return user ewallet
+     */
+    public Ewallet getEwallet() {
+        return ewallet;
     }
 
     @Override
