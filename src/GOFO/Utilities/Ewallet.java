@@ -6,7 +6,7 @@ public class Ewallet {
     private double balance;
     private String ownerId;
 
-    Ewallet(double balance, String ownerId) {
+    public Ewallet(double balance, String ownerId) {
 
     }
 

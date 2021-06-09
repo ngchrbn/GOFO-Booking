@@ -1,7 +1,6 @@
 package GOFO.System;
 
 import GOFO.UI.UI;
-import GOFO.User.Player;
 import GOFO.User.User;
 import GOFO.Utilities.Playground;
 
@@ -22,7 +21,7 @@ public class GoFo {
      */
     public GoFo() {
         users.put("admin", new User());
-        UI ui = new UI();
+        new UI();
     }
 
 

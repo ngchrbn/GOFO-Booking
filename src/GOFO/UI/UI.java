@@ -4,6 +4,7 @@ import GOFO.System.GoFo;
 import GOFO.User.Player;
 import GOFO.User.PlaygroundOwner;
 import GOFO.Utilities.Address;
+import GOFO.Utilities.Ewallet;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -173,16 +174,22 @@ public class UI {
 
         int profileType = getProfileType();
 
+        input = new Scanner(System.in);
+        System.out.println("Enter actual balance for your eWallet: ");
+        double balance = input.nextDouble();
+
         switch (profileType) {
             case 1 -> {
+                Ewallet ewallet = new Ewallet(balance, id);
                 Player player = new Player(fName, lName, id, email,
-                        password, phoneNumber, address);
+                        password, phoneNumber, address, ewallet);
                 GoFo.adduser(id, player);
                 new PlayerUI(id, player);
             }
             case 2 -> {
+                Ewallet ewallet = new Ewallet(balance, id);
                 PlaygroundOwner playgroundOwner = new PlaygroundOwner(
-                        fName, lName, id, email, password, phoneNumber, address
+                        fName, lName, id, email, password, phoneNumber, address, ewallet
                 );
                 GoFo.adduser(id, playgroundOwner);
                 new PlaygroundOwnerUI(id, playgroundOwner);
