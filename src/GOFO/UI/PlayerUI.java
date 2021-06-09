@@ -2,10 +2,14 @@ package GOFO.UI;
 
 import GOFO.System.GoFo;
 import GOFO.User.Player;
+import GOFO.Utilities.Playground;
+import GOFO.Utilities.TimeSlot;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerUI {
+    private static int myBookings = 0;
     private final Player player;
     private final String playerId;
     public PlayerUI(String id, Player player) {
@@ -21,7 +25,7 @@ public class PlayerUI {
                 "2. Manage Teams.\n" +
                 "3. Manage Complaints.\n" +
                 "4. Log Out.");
-        int choice = getChoice();
+        int choice = getChoice(4);
 
         switch (choice) {
             case 1 -> manageBookings();
@@ -41,7 +45,7 @@ public class PlayerUI {
                 "3. Cancel a complaint\n" +
                 "4. Go to Main Menu");
 
-        int choice = getChoice();
+        int choice = getChoice(4);
 
         switch (choice) {
             case 1 -> createComplaint();
@@ -81,7 +85,7 @@ public class PlayerUI {
                 "3. Remove a team.\n" +
                 "4. Go to Main Menu.");
 
-        int choice = getChoice();
+        int choice = getChoice(4);
 
         switch (choice) {
             case 1 -> createTeam();
@@ -113,13 +117,13 @@ public class PlayerUI {
      * Returns the choice of the player from menu choices
      * @return menu option
      */
-    private int getChoice() {
+    private int getChoice(int max) {
         Scanner input = new Scanner(System.in);
-        System.out.print("\nChoice (1 - 4): ");
+        System.out.print("\nChoice (1 - " + max + " ): ");
         int choice = input.nextInt();
-        while (choice < 1 || choice > 4) {
+        while (choice < 1 || choice > max) {
             System.out.println("Invalid input");
-            System.out.print("\nChoice (1 - 4): ");
+            System.out.print("\nChoice (1 - " + max + " ): ");
             choice = input.nextInt();
         }
 
@@ -136,7 +140,7 @@ public class PlayerUI {
                 "3. Cancel a booking\n" +
                 "4. Main Menu.");
 
-        int choice = getChoice();
+        int choice = getChoice(4);
 
         switch (choice) {
             case 1 -> bookPlayground();
@@ -157,13 +161,139 @@ public class PlayerUI {
      * Return the bookings of the player
      */
     private void viewBookings() {
+        ArrayList<TimeSlot> bookings = new ArrayList<>();
+        bookings = GoFo.getBookingInfo(playerId);
+        if (!bookings.isEmpty()) {
+            for (TimeSlot timeSlot: bookings) {
+                System.out.println("\n" + timeSlot);
+                System.out.println("\n->Cost: " + calculatePrice(timeSlot.getPlaygroundID(), timeSlot.getStartHour(),
+                        timeSlot.getEndHour()));
+            }
 
+        }
+        else
+            System.out.println("No booking with your ID found in our system.");
+        manageBookings();
     }
 
     /**
      * Book a playground
      */
     private void bookPlayground() {
+        ArrayList<Playground> playgrounds = new ArrayList<>();
+        System.out.println("1. Show playgrounds by address.\n" +
+                "2. Show all playgrounds.");
+        int choice = getChoice(2);
 
+        switch (choice) {
+            case 1 -> {
+                Scanner input = new Scanner(System.in);
+                System.out.print("City: ");
+                String city = input.nextLine();
+                playgrounds = GoFo.filterByCity(city);
+                if (playgrounds.isEmpty()) {
+                    System.out.println("No playground found in " + city);
+                    bookPlayground();
+                }
+            }
+            case 2 -> playgrounds = GoFo.filterByCity("");
+        }
+
+
+        if (!playgrounds.isEmpty()) {
+            System.out.println("These are the playgrounds I found");
+            int i=0;
+            for (Playground playground: playgrounds) {
+                System.out.println("\n Playground " + (i+1));
+                System.out.println(playground);
+                i++;
+            }
+
+            int startHour, endHour;
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("\n\nEnter time slots: ");
+            System.out.print("\nStart Hour: ");
+            startHour = input.nextInt();
+            System.out.print("End hour: ");
+            endHour = input.nextInt();
+            playgrounds = filterByTimeSlot(playgrounds, startHour, endHour);
+
+
+            if (!playgrounds.isEmpty()) {
+                System.out.println("After applying time slots, here the remaining playgrounds\n");
+                i=0;
+                for (Playground playground: playgrounds) {
+                    System.out.println("\n Playground " + (i+1));
+                    System.out.println(playground);
+                    i++;
+                }
+
+                input = new Scanner(System.in);
+                System.out.println("Enter your chosen playground: ");
+                System.out.print("Playground ID: ");
+                String playgroundId = input.nextLine();
+
+                System.out.println("Fill in these required information");
+                System.out.print("Day of booking: ");
+                int day = input.nextInt();
+                System.out.print("Month of Booking: ");
+                int month = input.nextInt();
+                System.out.print("Year of Booking: ");
+                int year = input.nextInt();
+
+                TimeSlot timeSlot = new TimeSlot(day, month, year,
+                        startHour, endHour, playerId, playgroundId);
+
+                double price = calculatePrice(playgroundId, startHour, endHour);
+                System.out.println("Price is: " + price);
+
+                if(player.getEwallet().withdraw(price)) {
+                    GoFo.addBooking(playerId+myBookings, price, timeSlot);
+                    myBookings++;
+                }
+            }
+            else {
+                System.out.println("No playground was found within those time slots.");
+            }
+        }
+        else {
+            System.out.println("No playground was found!");
+        }
+
+
+        manageBookings();
     }
+
+    /**
+     * Calculate and returns the price for the booking
+     * @param playgroundId playground id
+     * @param startHour start hour
+     * @param endHour end hour
+     * @return price (endHour-startHour) * pricePerHour of the playground.
+     */
+    private double calculatePrice(String playgroundId, int startHour, int endHour) {
+        double pricePerHour = GoFo.getPlaygroundPricePerHour(playgroundId);
+        return (endHour - startHour) * pricePerHour;
+    }
+
+    /**
+     * Filter playgrounds by time slots
+     * @param playgrounds playgrounds in which to apply filter
+     * @param startHour start hour
+     * @param endHour end hour
+     * @return ArrayList of Playgrounds if found otherwise empty ArrayList of Playgrounds
+     */
+    private ArrayList<Playground> filterByTimeSlot(ArrayList<Playground> playgrounds, int startHour, int endHour) {
+        ArrayList<Playground> filteredPlaygrounds = new ArrayList<>();
+        for (Playground playground: playgrounds) {
+            String[] availability = playground.getAvailableHours().split("-");
+            if ((Integer.parseInt(availability[0]) <= startHour) && (Integer.parseInt(availability[1]) >= endHour)) {
+                filteredPlaygrounds.add(playground);
+            }
+        }
+        return filteredPlaygrounds;
+    }
+
+
 }

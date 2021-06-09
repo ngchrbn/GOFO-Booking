@@ -8,6 +8,7 @@ public class TimeSlot {
     private int endHour;
     private boolean booked;
     private String bookedTo;
+    private String playgroundID;
 
     /**
      * Construct a TimeSlot object
@@ -18,13 +19,14 @@ public class TimeSlot {
      * @param endHour end hour
      * @param bookedTo bookedTo
      */
-    TimeSlot(int day,int month,  int year, int startHour,
-             int endHour, String bookedTo) {
+    public TimeSlot(int day, int month, int year, int startHour,
+                    int endHour, String bookedTo, String playgroundID) {
         setDay(day);
         setMonth(month);
         setYear(year);
         setStartHour(startHour);
         setEndHour(endHour);
+        setPlaygroundID(playgroundID);
         setBookedTo(bookedTo);
         setBooked(false);
     }
@@ -139,5 +141,32 @@ public class TimeSlot {
      */
     public boolean isBooked() {
         return booked;
+    }
+
+    /**
+     * Set the playground id for the booking
+     * @param playgroundID playground id
+     */
+    public void setPlaygroundID(String playgroundID) {
+        this.playgroundID = playgroundID;
+    }
+
+    /**
+     * Returns the booked playground id
+     * @return playground id
+     */
+    public String getPlaygroundID() {
+        return playgroundID;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking details: " +
+                "\n->Day: " + getDay() +
+                "\n->Month: " + getMonth() +
+                "\n->Year: " + getYear() +
+                "\n->Start Hour: " + getStartHour() +
+                "\n->End Hour: " + getEndHour() +
+                "\n->Playground ID: " + getPlaygroundID();
     }
 }

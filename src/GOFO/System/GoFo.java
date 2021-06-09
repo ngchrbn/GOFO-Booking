@@ -1,11 +1,13 @@
 package GOFO.System;
 
 import GOFO.UI.UI;
+import GOFO.User.Player;
 import GOFO.User.PlaygroundOwner;
 import GOFO.User.User;
 import GOFO.Utilities.Address;
 import GOFO.Utilities.Ewallet;
 import GOFO.Utilities.Playground;
+import GOFO.Utilities.TimeSlot;
 
 import java.util.*;
 
@@ -16,6 +18,10 @@ public class GoFo {
 
     // Store all playgrounds and theirs ids
     private static Map<String, Playground> playgrounds = new HashMap<>();
+
+    private static Map<String, Double> bookingCosts = new HashMap<>();
+
+    private static Map<String, TimeSlot> bookingDetails = new HashMap<>();
 
     /**
      * Constructs a Gofo object
@@ -29,7 +35,13 @@ public class GoFo {
                 new Address(25, "Gizah", "Cairo"),
                 new Ewallet(2500, "12563254452369"));
 
+        Player player = new Player("Guy","Cherubin", "12563254452379",
+                "gchrbn@gmail.com", "gchrbn1234", "01228331194",
+                new Address(25, "Gizah", "Cairo"),
+                new Ewallet(2500, "12563254452369"));
+
         users.put("12563254452369", user);
+        users.put("12563254452379", player);
 
         playgrounds.put("12563254452369", new Playground("Gofo",user,
                 "12563254452369", 25, new Address(25, "Dooi", "Cairo"),
@@ -161,5 +173,57 @@ public class GoFo {
      */
     public static void activatePlayground(String playgroundID) {
         playgrounds.get(playgroundID).setActivated(true);
+    }
+
+    /**
+     * Filter the playgrounds by city name
+     * @param city city name
+     * @return playgrounds if found otherwise empty ArrayList of Playgrounds
+     */
+    public static ArrayList<Playground> filterByCity(String city) {
+        ArrayList<Playground> filteredPlaygrounds = new ArrayList<>();
+        if (!city.equals("")) {
+            for (Playground playground: playgrounds.values()) {
+                if (playground.getPlaygroundAddress().getCity().equals(city) &&
+                        playground.isActivated()) {
+                    filteredPlaygrounds.add(playground);
+                }
+            }
+        }
+        else {
+            for (Playground playground: playgrounds.values()) {
+                if (playground.isActivated()) {
+                    filteredPlaygrounds.add(playground);
+                }
+            }
+        }
+        return filteredPlaygrounds;
+    }
+
+    public static double getPlaygroundPricePerHour(String playgroundId) {
+        return playgrounds.get(playgroundId).getPricePerHour();
+    }
+
+    public static void addBooking(String bookingID, double price, TimeSlot timeSlot) {
+        bookingCosts.put(bookingID, price);
+        bookingDetails.put(bookingID, timeSlot);
+        playgrounds.get(timeSlot.getPlaygroundID()).setActivated(true);
+        timeSlot.setBooked(true);
+        System.out.println("Playground booked successfully");
+    }
+
+    /**
+     * Get a booking info
+     * @param playerId player id
+     * @return
+     */
+    public static ArrayList<TimeSlot> getBookingInfo(String playerId) {
+        ArrayList<TimeSlot> timeSlots = new ArrayList<>();
+        for (String bookingID: bookingDetails.keySet()) {
+            if (bookingID.substring(0, 14).equals(playerId)) {
+                timeSlots.add(bookingDetails.get(bookingID));
+            }
+        }
+        return timeSlots;
     }
 }
