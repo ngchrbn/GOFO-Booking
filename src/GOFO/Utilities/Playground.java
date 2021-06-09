@@ -1,9 +1,11 @@
 package GOFO.Utilities;
 
 
+import GOFO.User.PlaygroundOwner;
+
 public class Playground {
     private String playgroundName;
-    private Playground playgroundOwner;
+    private PlaygroundOwner playgroundOwner;
     private String playgroundID;
     private double pricePerHour;
     private Address playgroundAddress;
@@ -12,9 +14,9 @@ public class Playground {
     private int cancellationPeriod;
     private boolean activated;
 
-    Playground(String playgroundName, Playground playgroundOwner,
-               String playgroundID, double pricePerHour, Address playgroundAddress,
-               String size, String availableHours, int cancellationPeriod) {
+    public Playground(String playgroundName, PlaygroundOwner playgroundOwner,
+                      String playgroundID, double pricePerHour, Address playgroundAddress,
+                      String size, String availableHours, int cancellationPeriod) {
         setPlaygroundName(playgroundName);
         setPlaygroundOwner(playgroundOwner);
         setPlaygroundID(playgroundID);
@@ -38,7 +40,7 @@ public class Playground {
      * Set the playground owner
      * @param playgroundOwner playground owner
      */
-    public void setPlaygroundOwner(Playground playgroundOwner) {
+    public void setPlaygroundOwner(PlaygroundOwner playgroundOwner) {
         this.playgroundOwner = playgroundOwner;
     }
 
@@ -110,7 +112,7 @@ public class Playground {
      * Returns playground owner
      * @return playground owner
      */
-    public Playground getPlaygroundOwner() {
+    public PlaygroundOwner getPlaygroundOwner() {
         return playgroundOwner;
     }
 

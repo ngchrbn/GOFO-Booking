@@ -175,8 +175,9 @@ public class UI {
         int profileType = getProfileType();
 
         input = new Scanner(System.in);
-        System.out.println("Enter actual balance for your eWallet: ");
+        System.out.print("\nEnter actual balance for your eWallet: ");
         double balance = input.nextDouble();
+
 
         switch (profileType) {
             case 1 -> {

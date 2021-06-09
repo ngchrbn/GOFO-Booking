@@ -1,5 +1,9 @@
 package GOFO.UI;
 
+import GOFO.System.GoFo;
+import GOFO.Utilities.Playground;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdministratorUI {
@@ -58,7 +62,7 @@ public class AdministratorUI {
      * a playground.
      */
     private void managePlaygrounds() {
-        System.out.println("\n1. Approve a playground.\n" +
+        System.out.println("\n\n1. Approve a playground.\n" +
                 "2. Suspend a playground.\n" +
                 "3. Remove a playground.\n" +
                 "4. Go to Main Menu.");
@@ -90,7 +94,19 @@ public class AdministratorUI {
      * Approve a playground
      */
     private void approvePlayground() {
-
+        ArrayList<Playground> playgrounds;
+        playgrounds = GoFo.getPlaygrounds("", "");
+        if (playgrounds.isEmpty())
+            System.out.print("No playground to activate.");
+        else {
+            for (Playground playground: playgrounds) {
+                if (!playground.isActivated()) {
+                    GoFo.activatePlayground(playground.getPlaygroundID());
+                }
+            }
+            System.out.print("All deactivated playgrounds have been activated!");
+        }
+        managePlaygrounds();
     }
 
     private int getChoice(int max) {
