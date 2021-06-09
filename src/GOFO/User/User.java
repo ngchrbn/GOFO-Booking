@@ -14,6 +14,21 @@ public class User {
     private Ewallet ewallet;
     public User(){}
 
+    /**
+     * Constructs a user object just for the admin
+     * @param password identification for the admin
+     */
+    public User(String password) {
+        setFName("");
+        setlName("");
+        setId("admin");
+        setEmail("admin@gmail.com");
+        setPassword(password);
+        setPhoneNumber("");
+        setAddress(null);
+        setEwallet(null);
+    }
+
     public User(String fName, String lName, String id, String email,
                 String password, String phoneNumber, Address address,
                 Ewallet ewallet) {
@@ -24,6 +39,7 @@ public class User {
         setPassword(password);
         setPhoneNumber(phoneNumber);
         setAddress(address);
+        setEwallet(ewallet);
     }
 
     public void setFName(String fName) {
