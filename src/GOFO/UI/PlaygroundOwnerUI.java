@@ -65,6 +65,7 @@ public class PlaygroundOwnerUI {
      */
     private void viewPlaygrounds() {
 
+
     }
 
     /**
@@ -85,6 +86,32 @@ public class PlaygroundOwnerUI {
      * Add a playground.
      */
     private void addPlayground() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the below required information: ");
+        System.out.print("Playground Name: ");
+        String playgroundName = input.nextLine();
+
+        input = new Scanner(System.in);
+        System.out.println("Price Per hour: ");
+        double pricePerHour = input.nextDouble();
+
+        System.out.println("Enter the address information: ");
+        System.out.print("Street Number: ");
+        int streetNumber = input.nextInt();
+        System.out.print("Street Name: ");
+        String streetName = input.nextLine();
+        System.out.println("City: ");
+        String city = input.nextLine();
+
+        System.out.print("Enter size (separated by a -): ");
+        String size = input.nextLine();
+
+        System.out.print("Available Hours(separated by a -): ");
+        String availableHours = input.nextLine();
+
+        System.out.print("Cancellation period( in hours): ");
+        int cancellationPeriod = input.nextInt();
+
 
     }
 
