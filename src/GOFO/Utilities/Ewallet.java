@@ -7,7 +7,8 @@ public class Ewallet {
     private String ownerId;
 
     public Ewallet(double balance, String ownerId) {
-
+        setBalance(balance);
+        setOwnerId(ownerId);
     }
 
     /**
@@ -56,7 +57,7 @@ public class Ewallet {
      * Deposit an amount to the eWallet
      * @param amount amount to deposit
      */
-    private void deposit(double amount) {
+    public void deposit(double amount) {
         setBalance(getBalance() + amount);
     }
 
@@ -66,17 +67,21 @@ public class Ewallet {
      *  actual balance.
      * @param amount amount to withdraw
      */
-    private void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         if (amount < 0) {
             System.out.println("You can't withdraw negative amount!");
+            return false;
         }
         else if (amount > getBalance()) {
             System.out.println("Funds insufficient to withdraw!");
+            System.out.println("Your balance is: " + getBalance());
+            return false;
         }
         else {
             setBalance(getBalance() - amount);
             System.out.println("Balance " + amount
                     + " L.E has been withdrawn from your eWallet.");
         }
+        return true;
     }
 }
