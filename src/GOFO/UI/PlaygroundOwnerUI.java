@@ -8,10 +8,21 @@ import GOFO.Utilities.Playground;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * PlaygroundOwnerUI: Let a playgroundOwner interact with the system.
+ * @author Ntajugumba Guy Cherubin
+ * @version 1.0
+ */
 public class PlaygroundOwnerUI {
     private static int myPlaygrounds = 0;
     private final PlaygroundOwner playgroundOwner;
     private final String playgroundOwnerID;
+
+    /**
+     * Constructs a PlaygroundOwnerUI object.
+     * @param id id of the playground owner
+     * @param playgroundOwner playgroundOwner object
+     */
     public PlaygroundOwnerUI(String id, PlaygroundOwner playgroundOwner) {
         this.playgroundOwner = playgroundOwner;
         playgroundOwnerID = id;
@@ -21,7 +32,7 @@ public class PlaygroundOwnerUI {
 
     /**
      * Let a playgroundOwner add a playground, view his/her playgrounds,
-     * and view the bookings
+     * and view the bookings.
      */
     private void mainMenu() {
         System.out.println("\n\n1. Manage playgrounds.\n" +

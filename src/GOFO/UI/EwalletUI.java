@@ -4,7 +4,17 @@ import GOFO.User.User;
 
 import java.util.Scanner;
 
+/**
+ * EWalletUI: Let a User interact with the system.
+ * @author Ntajugumba Guy Cherubin
+ * @version 1.0
+ */
 public class EwalletUI {
+
+    /**
+     * Construct a EWalletUI object
+     * @param user User object
+     */
     EwalletUI(User user) {
         System.out.println("Welcome " + user);
         mainMenu();
@@ -57,6 +67,11 @@ public class EwalletUI {
 
     }
 
+    /**
+     * Get a user choice for a list of options
+     * @param max number of options
+     * @return choice
+     */
     private int getChoice(int max) {
         Scanner input = new Scanner(System.in);
         System.out.print("\nChoice (1 - " + max + "): ");
