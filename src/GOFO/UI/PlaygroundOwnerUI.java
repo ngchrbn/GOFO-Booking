@@ -69,31 +69,38 @@ public class PlaygroundOwnerUI {
      * View my playgrounds.
      */
     private void viewPlaygrounds() {
-        ArrayList<Playground> playgrounds = new ArrayList<>();
         System.out.print("1. A specific playground.\n" +
                 "2. All playgrounds.");
         int choice = getChoice(2);
         switch (choice) {
             case 1 -> {
+                Playground playground;
                 Scanner input = new Scanner(System.in);
                 System.out.print("Playground ID: ");
                 String playgroundID = input.nextLine();
-                playgrounds = GoFo.getPlaygrounds("", playgroundID);
+                playground = GoFo.getPlaygroundInfo(playgroundID);
+                if (playground == null) {
+                    System.out.println("No playground found with ID: " + playgroundID);
+                }
+                else {
+                    System.out.println("\n" + playground);
+                }
             }
             case 2 -> {
-                playgrounds = GoFo.getPlaygrounds(playgroundOwnerID, "");
+                ArrayList<Playground> playgrounds;
+                playgrounds = GoFo.getPlaygrounds(playgroundOwnerID);
+                if (!playgrounds.isEmpty()) {
+                    for (Playground playground: playgrounds) {
+                        System.out.print("\n\n" + playground);
+                    }
+                }
+                else {
+                    System.out.print("\nNo playground registered under your name.");
+                }
             }
         }
 
-        if (!playgrounds.isEmpty()) {
-            for (Playground playground: playgrounds) {
-                System.out.print("\n\n" + playground);
-            }
-        }
-        else {
-            System.out.print("\nYou don't have any playground yet or" +
-                    " you provided a wrong ID!");
-        }
+
         managePlaygrounds();
     }
 

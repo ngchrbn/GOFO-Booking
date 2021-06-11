@@ -138,30 +138,20 @@ public class GoFo {
     }
 
     /**
-     * Returns the playgrounds of an owner
-     * @param playgroundOwnerID playground owner id
-     * @param playgroundID playground id
-     * @return playgrounds
+     * Returns the playgrounds of an owner if given playgroundOwnerID
+     * <p>Or returns all playgrounds if given empty string.
+     * @param playgroundOwnerID playground owner id or empty String.
+     * @return playgrounds if found otherwise empty ArrayList.
      */
-    public static ArrayList<Playground> getPlaygrounds(String playgroundOwnerID, String playgroundID) {
+    public static ArrayList<Playground> getPlaygrounds(String playgroundOwnerID) {
         ArrayList<Playground> ownerPlaygrounds = new ArrayList<>();
-        if (playgroundOwnerID.equals("") && playgroundID.equals(""))
+        if (playgroundOwnerID.equals("")) {
             ownerPlaygrounds.addAll(playgrounds.values());
-        else {
-            if (!playgroundOwnerID.equals("") && playgroundID.equals("")) {
-                for (Playground playground: playgrounds.values()) {
-                    if (playground.getPlaygroundOwner().getId().equals(playgroundOwnerID)) {
-                        ownerPlaygrounds.add(playground);
-                    }
-                }
-            }
-            else {
-                if (playgrounds.containsKey(playgroundID)) {
-                    ownerPlaygrounds.add(playgrounds.get(playgroundID));
-                }
-                else {
-                    return ownerPlaygrounds;
-                }
+            return ownerPlaygrounds;
+        }
+        for (Playground playground: playgrounds.values()) {
+            if (playground.getPlaygroundOwner().getId().equals(playgroundOwnerID)) {
+                ownerPlaygrounds.add(playground);
             }
         }
         return ownerPlaygrounds;
