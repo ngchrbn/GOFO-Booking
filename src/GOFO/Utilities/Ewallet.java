@@ -2,17 +2,27 @@ package GOFO.Utilities;
 
 import GOFO.User.User;
 
+/**
+ * Ewallet: Represent an ewallet with its attributes and methods.
+ * @author Mahamat Ibrahim Mahamat
+ * @version 1.0
+ */
 public class Ewallet {
     private double balance;
     private String ownerId;
 
+    /**
+     * Constructs an Ewallet object.
+     * @param balance ewallet balance
+     * @param ownerId owner id
+     */
     public Ewallet(double balance, String ownerId) {
         setBalance(balance);
         setOwnerId(ownerId);
     }
 
     /**
-     * Set an initial balance to the account
+     * Set an initial balance to the account.
      * @param balance initial balance
      */
     public void setBalance(double balance) {
@@ -20,7 +30,7 @@ public class Ewallet {
     }
 
     /**
-     * Set the owner of the eWallet
+     * Set the owner of the eWallet.
      * @param ownerId owner id
      */
     public void setOwnerId(String ownerId) {
@@ -28,7 +38,7 @@ public class Ewallet {
     }
 
     /**
-     * Returns the balance in the eWallet
+     * Returns the balance in the eWallet.
      * @return balance
      */
     public double getBalance() {
@@ -36,7 +46,7 @@ public class Ewallet {
     }
 
     /**
-     * Returns owner id of the eWallet
+     * Returns owner id of the eWallet.
      * @return owner id
      */
     public String getOwnerId() {
@@ -44,17 +54,7 @@ public class Ewallet {
     }
 
     /**
-     * Returns a representation of an eWallet
-     * @return eWallet info
-     */
-    @Override
-    public String toString() {
-        return "EWallet owner: " + getOwnerId() +
-                "EWallet balance: " + getBalance();
-    }
-
-    /**
-     * Deposit an amount to the eWallet
+     * Deposit an amount to the eWallet.
      * @param amount amount to deposit
      */
     public void deposit(double amount) {
@@ -84,5 +84,15 @@ public class Ewallet {
                     + " L.E has been withdrawn from your eWallet.");
         }
         return true;
+    }
+
+    /**
+     * Returns a representation of an eWallet.
+     * @return eWallet info
+     */
+    @Override
+    public String toString() {
+        return "EWallet owner: " + getOwnerId() +
+                "EWallet balance: " + getBalance();
     }
 }

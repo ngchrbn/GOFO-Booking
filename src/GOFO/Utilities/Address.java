@@ -1,5 +1,10 @@
 package GOFO.Utilities;
 
+/**
+ * Address: Represent an address with its attributes and methods.
+ * @author Mahamat Ibrahim Mahamat
+ * @version 1.0
+ */
 public class Address {
     private int streetNumber;
     private String streetName;
@@ -27,7 +32,7 @@ public class Address {
     }
 
     /**
-     * Set street name
+     * Set street name.
      * @param streetName street name
      */
     public void setStreetName(String streetName) {
@@ -35,7 +40,7 @@ public class Address {
     }
 
     /**
-     * Set city
+     * Set city.
      * @param city city
      */
     public void setCity(String city) {
@@ -43,7 +48,7 @@ public class Address {
     }
 
     /**
-     * Returns street number
+     * Returns street number.
      * @return street number
      */
     public int getStreetNumber() {
@@ -59,16 +64,20 @@ public class Address {
     }
 
     /**
-     * Returns city
+     * Returns city.
      * @return city
      */
     public String getCity() {
         return city;
     }
 
+    /**
+     * Returns a well formatted representation of an address object.
+     * @return Address representation
+     */
     @Override
     public String toString() {
-        return "Address: " + getStreetNumber()
+        return getStreetNumber()
                 + " " + getStreetName() + " " + getCity();
     }
 }

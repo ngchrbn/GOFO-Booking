@@ -4,6 +4,11 @@ import GOFO.User.Player;
 
 import java.util.ArrayList;
 
+/**
+ * Team: Represent a team with its attributes and methods.
+ * @author Mahamat Ibrahim Mahamat
+ * @version 1.0
+ */
 public class Team {
     private String teamName;
     private String ownerID;
@@ -15,7 +20,7 @@ public class Team {
      * @param ownerID owner id
      * @param members team's members
      */
-    Team(String teamName, String ownerID, ArrayList<Player> members) {
+    public Team(String teamName, String ownerID, ArrayList<Player> members) {
         setTeamName(teamName);
         setOwnerID(ownerID);
         setMembers(members);
