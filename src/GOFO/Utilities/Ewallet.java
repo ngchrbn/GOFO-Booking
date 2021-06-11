@@ -66,6 +66,7 @@ public class Ewallet {
      *  after checking that it is not negative and not greater than
      *  actual balance.
      * @param amount amount to withdraw
+     * @return boolean true or false if insufficient fund or negative amount
      */
     public boolean withdraw(double amount) {
         if (amount < 0) {
