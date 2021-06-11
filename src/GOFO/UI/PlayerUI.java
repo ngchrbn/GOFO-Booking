@@ -19,19 +19,59 @@ public class PlayerUI {
         mainMenu();
     }
 
+    /**
+     * Intended for the player to choose an option.
+     */
     private void mainMenu() {
 
-        System.out.println("\n1. Manage Bookings.\n" +
-                "2. Manage Teams.\n" +
-                "3. Manage Complaints.\n" +
-                "4. Log Out.");
-        int choice = getChoice(4);
+        System.out.println("\n1. View a playground info.\n" +
+                "2. Manage Bookings.\n" +
+                "3. Manage Teams.\n" +
+                "4. Manage Complaints.\n" +
+                "5. Log Out.");
+        int choice = getChoice(5);
 
         switch (choice) {
-            case 1 -> manageBookings();
-            case 2 -> manageTeams();
-            case 3 -> manageComplaints();
-            case 4 -> new UI();
+            case 1 -> viewPlaygroundInfo();
+            case 2 -> manageBookings();
+            case 3 -> manageTeams();
+            case 4 -> manageComplaints();
+            case 5 -> new UI();
+        }
+    }
+
+    /**
+     * Show a playground info given its id.
+     */
+    private void viewPlaygroundInfo() {
+        Scanner input = new Scanner(System.in);
+        Playground playground;
+        String playgroundID;
+        System.out.println("\nTo view a playground info, enter its ID.");
+        System.out.print("Playground ID: ");
+        playgroundID = input.nextLine();
+
+        playground = GoFo.getPlaygroundInfo(playgroundID);
+
+        if (playground == null) {
+            System.out.println("\n==>No playground found with ID: " + playgroundID);
+            System.out.print("Would you like to try again?(Y/N): ");
+            String tryAgain = input.nextLine();
+            while (!tryAgain.equals("Y") && !tryAgain.equals("N")) {
+                System.out.println("Invalid input!");
+                System.out.print("Enter Y or N: ");
+                tryAgain = input.nextLine();
+            }
+            if (tryAgain.equals("N")) {
+                mainMenu();
+            }
+            else {
+                viewPlaygroundInfo();
+            }
+        }
+        else {
+            System.out.println("\n" + playground);
+            mainMenu();
         }
     }
 
