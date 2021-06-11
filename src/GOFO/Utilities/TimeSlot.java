@@ -145,7 +145,7 @@ public class TimeSlot {
      * @return true or false
      */
     public boolean isBooked() {
-        return booked;
+        return !booked;
     }
 
     /**
