@@ -1,5 +1,10 @@
 package GOFO.Utilities;
 
+/**
+ * TimeSLot: Represent a timeslot with its attributes and methods.
+ * @author Mahamat Ibrahim Mahamat
+ * @version 1.0
+ */
 public class TimeSlot {
     private int day;
     private int month;
@@ -159,6 +164,10 @@ public class TimeSlot {
         return playgroundID;
     }
 
+    /**
+     * Returns a formatted description of a timeslot
+     * @return timeslot description
+     */
     @Override
     public String toString() {
         return "Booking details: " +
