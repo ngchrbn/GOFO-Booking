@@ -100,7 +100,7 @@ public class AdministratorUI {
      */
     private void approvePlayground() {
         ArrayList<Playground> playgrounds;
-        playgrounds = GoFo.getPlaygrounds("");
+        playgrounds = GoFo.getPlaygrounds("", false);
         if (playgrounds.isEmpty())
             System.out.print("No playground to activate.");
         else {

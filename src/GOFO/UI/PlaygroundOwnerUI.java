@@ -99,7 +99,7 @@ public class PlaygroundOwnerUI {
             }
             case 2 -> {
                 ArrayList<Playground> playgrounds;
-                playgrounds = GoFo.getPlaygrounds(playgroundOwnerID);
+                playgrounds = GoFo.getPlaygrounds(playgroundOwnerID, false);
                 if (!playgrounds.isEmpty()) {
                     for (Playground playground: playgrounds) {
                         System.out.print("\n\n" + playground);
