@@ -236,7 +236,7 @@ public class PlayerUI {
                     bookPlayground();
                 }
             }
-            case 2 -> playgrounds = GoFo.filterByCity("");
+            case 2 -> playgrounds = GoFo.getPlaygrounds("");
         }
 
 

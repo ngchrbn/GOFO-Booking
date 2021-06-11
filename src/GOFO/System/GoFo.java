@@ -146,12 +146,17 @@ public class GoFo {
     public static ArrayList<Playground> getPlaygrounds(String playgroundOwnerID) {
         ArrayList<Playground> ownerPlaygrounds = new ArrayList<>();
         if (playgroundOwnerID.equals("")) {
-            ownerPlaygrounds.addAll(playgrounds.values());
-            return ownerPlaygrounds;
+            for (Playground playground: playgrounds.values()) {
+                if (!playground.isActivated()) {
+                    ownerPlaygrounds.add(playground);
+                }
+            }
         }
-        for (Playground playground: playgrounds.values()) {
-            if (playground.getPlaygroundOwner().getId().equals(playgroundOwnerID)) {
-                ownerPlaygrounds.add(playground);
+        else {
+            for (Playground playground: playgrounds.values()) {
+                if (playground.getPlaygroundOwner().getId().equals(playgroundOwnerID)) {
+                    ownerPlaygrounds.add(playground);
+                }
             }
         }
         return ownerPlaygrounds;
@@ -172,19 +177,10 @@ public class GoFo {
      */
     public static ArrayList<Playground> filterByCity(String city) {
         ArrayList<Playground> filteredPlaygrounds = new ArrayList<>();
-        if (!city.equals("")) {
-            for (Playground playground: playgrounds.values()) {
-                if (playground.getPlaygroundAddress().getCity().equals(city) &&
-                        playground.isActivated()) {
-                    filteredPlaygrounds.add(playground);
-                }
-            }
-        }
-        else {
-            for (Playground playground: playgrounds.values()) {
-                if (playground.isActivated()) {
-                    filteredPlaygrounds.add(playground);
-                }
+        for (Playground playground: playgrounds.values()) {
+            if (playground.getPlaygroundAddress().getCity().equals(city) &&
+                    playground.isActivated()) {
+                filteredPlaygrounds.add(playground);
             }
         }
         return filteredPlaygrounds;
@@ -224,6 +220,8 @@ public class GoFo {
      */
     public static Playground getPlaygroundInfo(String playgroundID) {
         if (playgrounds.containsKey(playgroundID)) {
+            if (!playgrounds.get(playgroundID).isActivated())
+                return null;
             return playgrounds.get(playgroundID);
         }
         return null;
