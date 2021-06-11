@@ -11,6 +11,12 @@ import GOFO.Utilities.TimeSlot;
 
 import java.util.*;
 
+/**
+ * Gofo: Stores the Users, playgrounds, and the bookings details
+ * <p>In charge with functions that deals with the database.
+ * @author Ntajugumba Guy Cherubin 20160379
+ * @version 1.0
+ */
 public class GoFo {
 
     // Store all users and their ids
@@ -186,10 +192,21 @@ public class GoFo {
         return filteredPlaygrounds;
     }
 
+    /**
+     * Calculate the price for a booking
+     * @param playgroundId playground id
+     * @return price
+     */
     public static double getPlaygroundPricePerHour(String playgroundId) {
         return playgrounds.get(playgroundId).getPricePerHour();
     }
 
+    /**
+     * Add a new booking to the database
+     * @param bookingID booking id
+     * @param price price of the booking
+     * @param timeSlot timeSlot object
+     */
     public static void addBooking(String bookingID, double price, TimeSlot timeSlot) {
         bookingCosts.put(bookingID, price);
         bookingDetails.put(bookingID, timeSlot);
@@ -201,7 +218,7 @@ public class GoFo {
     /**
      * Get a booking info
      * @param playerId player id
-     * @return
+     * @return ArrayList of timeslots
      */
     public static ArrayList<TimeSlot> getBookingInfo(String playerId) {
         ArrayList<TimeSlot> timeSlots = new ArrayList<>();
