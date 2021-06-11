@@ -226,4 +226,16 @@ public class GoFo {
         }
         return timeSlots;
     }
+
+    /**
+     * Returns playground info
+     * @param playgroundID playground id
+     * @return playground object or null if not found.
+     */
+    public static Playground getPlaygroundInfo(String playgroundID) {
+        if (playgrounds.containsKey(playgroundID)) {
+            return playgrounds.get(playgroundID);
+        }
+        return null;
+    }
 }
