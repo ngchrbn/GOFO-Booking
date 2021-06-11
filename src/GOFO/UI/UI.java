@@ -192,7 +192,7 @@ public class UI {
                 Ewallet ewallet = new Ewallet(balance, id);
                 Player player = new Player(fName, lName, id, email,
                         password, phoneNumber, address, ewallet);
-                GoFo.adduser(id, player);
+                GoFo.adduser(id, player, "Player");
                 new PlayerUI(id, player);
             }
             case 2 -> {
@@ -200,7 +200,7 @@ public class UI {
                 PlaygroundOwner playgroundOwner = new PlaygroundOwner(
                         fName, lName, id, email, password, phoneNumber, address, ewallet
                 );
-                GoFo.adduser(id, playgroundOwner);
+                GoFo.adduser(id, playgroundOwner, "PlaygroundOwner");
                 new PlaygroundOwnerUI(id, playgroundOwner);
             }
         }

@@ -3,6 +3,7 @@ package GOFO.UI;
 import GOFO.System.GoFo;
 import GOFO.User.Player;
 import GOFO.Utilities.Playground;
+import GOFO.Utilities.Team;
 import GOFO.Utilities.TimeSlot;
 
 import java.util.ArrayList;
@@ -146,6 +147,44 @@ public class PlayerUI {
     }
 
     /**
+     * Send an invitation to a team
+     */
+    private void sendInvitation(String bookingID) {
+        Scanner input = new Scanner(System.in);
+        if (player.getTeam().isEmpty()) {
+            System.out.println("You don't have a team yet.\n" +
+                    "Would do you like to create it?");
+            System.out.print("choice (Y/N): ");
+            String choice = input.nextLine();
+            while (choice.equalsIgnoreCase("Y") &&
+            choice.equalsIgnoreCase("N")) {
+                System.out.println("Invalid input. Try again.");
+                System.out.print("choice (Y/N): ");
+                choice = input.nextLine();
+            }
+
+            if (choice.equalsIgnoreCase("Y")) {
+                createTeam();
+            }
+            else {
+                mainMenu();
+            }
+        }
+        else {
+            System.out.print("Team name: ");
+            String teamName = input.nextLine();
+            if (player.hasTeam(teamName)) {
+                GoFo.addInvitation(bookingID, player.getTeamInfo(teamName));
+                System.out.println("Invitation sent successfully.");
+            }
+            else {
+                System.out.println("Team " + teamName + "was not found!");
+            }
+        }
+        mainMenu();
+    }
+
+    /**
      * Remove a team.
      */
     private void removeTeam() {
@@ -158,9 +197,42 @@ public class PlayerUI {
     }
 
     /**
-     * Create a team
+     * Create a team.
      */
     private void createTeam() {
+        int numberOfMembers = 0;
+
+        ArrayList<Player> members = new ArrayList<>();
+
+        Scanner input = new Scanner(System.in);
+        int nMembers;
+        System.out.println("To create a team you will need to know the member's email\n" +
+                "And they must be registered on the system.");
+
+        System.out.print("\nTeam name: ");
+        String teamName = input.nextLine();
+        System.out.print("Number of members: ");
+        nMembers = input.nextInt();
+
+        input = new Scanner(System.in);
+
+        for (int i=0; i<nMembers; ++i) {
+            System.out.print("Team member email: ");
+            String memberEmail = input.nextLine();
+            if (GoFo.existEmail(memberEmail) && GoFo.profileType(memberEmail).equals("Player")) {
+                Player tPlayer = GoFo.getUser(memberEmail);
+                members.add(tPlayer);
+                numberOfMembers++;
+                System.out.println("==> " + memberEmail + "has been added.");
+            }
+            else {
+                System.out.println("\nPlayer with that email is not found!");
+            }
+        }
+        Team team = new Team(teamName, playerId, members);
+        player.addTeam(team);
+        System.out.println(numberOfMembers + " members has been added to " + teamName);
+        mainMenu();
     }
 
     /**
@@ -246,7 +318,7 @@ public class PlayerUI {
                     bookPlayground();
                 }
             }
-            case 2 -> playgrounds = GoFo.getPlaygrounds("", true);
+            case 2 -> playgrounds = GoFo.getAvailablePlaygrounds();
         }
 
 
@@ -280,7 +352,7 @@ public class PlayerUI {
                 }
 
                 input = new Scanner(System.in);
-                System.out.println("Enter your chosen playground: ");
+                System.out.println("\nEnter your chosen playground: ");
                 System.out.print("Playground ID: ");
                 String playgroundId = input.nextLine();
 
@@ -312,7 +384,21 @@ public class PlayerUI {
                     System.out.println("Price is: " + price);
 
                     if(player.getEwallet().withdraw(price)) {
-                        GoFo.addBooking(price, timeSlot);
+                        String bookingID = GoFo.addBooking(price, timeSlot);
+                        System.out.println("Would you like to send an invitation?");
+                        System.out.print("Choice(Y/N): ");
+                        input = new Scanner(System.in);
+                        String sendInvitation = input.nextLine();
+                        while (!sendInvitation.equalsIgnoreCase("Y") &&
+                                !sendInvitation.equalsIgnoreCase("N")) {
+                            System.out.println("Invalid input. Try again.");
+                            System.out.print("Choice(Y/N): ");
+                            sendInvitation = input.nextLine();
+                        }
+
+                        if (sendInvitation.equalsIgnoreCase("Y")) {
+                            sendInvitation(bookingID);
+                        }
                     }
                 }
 

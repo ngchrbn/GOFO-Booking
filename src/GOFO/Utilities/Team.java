@@ -20,7 +20,7 @@ public class Team {
      * @param ownerID owner id
      * @param members team's members
      */
-    Team(String teamName, String ownerID, ArrayList<Player> members) {
+    public Team(String teamName, String ownerID, ArrayList<Player> members) {
         setTeamName(teamName);
         setOwnerID(ownerID);
         setMembers(members);
