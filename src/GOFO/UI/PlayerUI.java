@@ -8,10 +8,21 @@ import GOFO.Utilities.TimeSlot;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * PlayerUI: Let a player interact with the system.
+ * @author Ntajugumba Guy Cherubin
+ * @version 1.0
+ */
 public class PlayerUI {
     private static int myBookings = 0;
     private final Player player;
     private final String playerId;
+
+    /**
+     * Constructs a PlayerUI object.
+     * @param id id of the player
+     * @param player player object
+     */
     public PlayerUI(String id, Player player) {
         this.player = player;
         playerId = id;
@@ -117,7 +128,7 @@ public class PlayerUI {
     }
 
     /**
-     * Let a player create a team, update a team or remove a team
+     * Let a player create a team, update a team or remove a team.
      */
     private void manageTeams() {
         System.out.println("\n1. Create a team.\n" +
@@ -136,7 +147,7 @@ public class PlayerUI {
     }
 
     /**
-     * Remove a team
+     * Remove a team.
      */
     private void removeTeam() {
     }
@@ -217,7 +228,7 @@ public class PlayerUI {
     }
 
     /**
-     * Book a playground
+     * Book a playground.
      */
     private void bookPlayground() {
         ArrayList<Playground> playgrounds = new ArrayList<>();
@@ -334,6 +345,5 @@ public class PlayerUI {
         }
         return filteredPlaygrounds;
     }
-
 
 }

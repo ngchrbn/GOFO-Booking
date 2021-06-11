@@ -6,6 +6,11 @@ import GOFO.Utilities.Playground;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * AdministratorUI: Let a Administrator interact with the system.
+ * @author Ntajugumba Guy Cherubin
+ * @version 1.0
+ */
 public class AdministratorUI {
     public AdministratorUI() {
         System.out.println("Welcome Administrator.");
@@ -109,6 +114,11 @@ public class AdministratorUI {
         managePlaygrounds();
     }
 
+    /**
+     * Get a user choice for a list of options.
+     * @param max number of options
+     * @return choice
+     */
     private int getChoice(int max) {
         Scanner input = new Scanner(System.in);
         System.out.print("\nChoice (1 - " + max + "): ");

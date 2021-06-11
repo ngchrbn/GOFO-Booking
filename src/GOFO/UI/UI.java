@@ -10,15 +10,23 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * UI: Let a User interact with the system.
+ * @author Ntajugumba Guy Cherubin
+ *  @version 1.0
+ */
 public class UI {
 
     /**
-     * Constructs a new UI object and calls a main menu
+     * Constructs a new UI object and calls a main menu.
      */
     public UI() {
         mainMenu();
     }
 
+    /**
+     * Show a User options to choose from.
+     */
     private void mainMenu() {
         Scanner input = new Scanner(System.in);
 
@@ -106,7 +114,7 @@ public class UI {
     }
 
     /**
-     * Register a new user in the database
+     * Register a new user in the database.
      */
     private void signUp() {
         Scanner input = new Scanner(System.in);
