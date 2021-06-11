@@ -23,6 +23,7 @@ public class TimeSlot {
      * @param startHour start hour
      * @param endHour end hour
      * @param bookedTo bookedTo
+     * @param playgroundID playground id
      */
     public TimeSlot(int day, int month, int year, int startHour,
                     int endHour, String bookedTo, String playgroundID) {

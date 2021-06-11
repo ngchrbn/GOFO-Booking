@@ -238,6 +238,7 @@ public class PlayerUI {
     /**
      * Returns the choice of the player from menu choices
      * @return menu option
+     * @param max max choice
      */
     private int getChoice(int max) {
         Scanner input = new Scanner(System.in);
