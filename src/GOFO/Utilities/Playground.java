@@ -3,6 +3,11 @@ package GOFO.Utilities;
 
 import GOFO.User.PlaygroundOwner;
 
+/**
+ * Playground: Represent a playground with its attributes and methods.
+ * @author Mahamat Ibrahim Mahamat
+ * @version 1.0
+ */
 public class Playground {
     private String playgroundName;
     private PlaygroundOwner playgroundOwner;
@@ -14,6 +19,17 @@ public class Playground {
     private int cancellationPeriod;
     private boolean activated;
 
+    /**
+     * Construct a playrgound object.
+     * @param playgroundName name
+     * @param playgroundOwner owner
+     * @param playgroundID id
+     * @param pricePerHour price per hour
+     * @param playgroundAddress address
+     * @param size sze
+     * @param availableHours availability
+     * @param cancellationPeriod cancellation period
+     */
     public Playground(String playgroundName, PlaygroundOwner playgroundOwner,
                       String playgroundID, double pricePerHour, Address playgroundAddress,
                       String size, String availableHours, int cancellationPeriod) {
@@ -29,7 +45,7 @@ public class Playground {
     }
 
     /**
-     * Set the playground name
+     * Set the playground name.
      * @param playgroundName playground name
      */
     public void setPlaygroundName(String playgroundName) {
@@ -37,7 +53,7 @@ public class Playground {
     }
 
     /**
-     * Set the playground owner
+     * Set the playground owner.
      * @param playgroundOwner playground owner
      */
     public void setPlaygroundOwner(PlaygroundOwner playgroundOwner) {
@@ -45,7 +61,7 @@ public class Playground {
     }
 
     /**
-     * Set the playground id
+     * Set the playground id.
      * @param playgroundID playground id
      */
     public void setPlaygroundID(String playgroundID) {
@@ -53,7 +69,7 @@ public class Playground {
     }
 
     /**
-     * Set the price per hour
+     * Set the price per hour.
      * @param pricePerHour price per hour
      */
     public void setPricePerHour(double pricePerHour) {
@@ -61,7 +77,7 @@ public class Playground {
     }
 
     /**
-     * Set playground address
+     * Set playground address.
      * @param playgroundAddress playground address
      */
     public void setPlaygroundAddress(Address playgroundAddress) {
@@ -69,7 +85,7 @@ public class Playground {
     }
 
     /**
-     * Set available hours
+     * Set available hours.
      * @param availableHours available hours
      */
     public void setAvailableHours(String availableHours) {
@@ -77,7 +93,7 @@ public class Playground {
     }
 
     /**
-     * Set playground size
+     * Set playground size.
      * @param size playground size
      */
     public void setSize(String size) {
@@ -85,7 +101,7 @@ public class Playground {
     }
 
     /**
-     * Set the cancellation period
+     * Set the cancellation period.
      * @param cancellationPeriod cancellation period
      */
     public void setCancellationPeriod(int cancellationPeriod) {
@@ -93,7 +109,7 @@ public class Playground {
     }
 
     /**
-     * Set playground state
+     * Set playground state.
      * @param activated playground state
      */
     public void setActivated(boolean activated) {
@@ -101,7 +117,7 @@ public class Playground {
     }
 
     /**
-     * Returns playground name
+     * Returns playground name.
      * @return playground name
      */
     public String getPlaygroundName() {
@@ -109,7 +125,7 @@ public class Playground {
     }
 
     /**
-     * Returns playground owner
+     * Returns playground owner.
      * @return playground owner
      */
     public PlaygroundOwner getPlaygroundOwner() {
@@ -117,7 +133,7 @@ public class Playground {
     }
 
     /**
-     * Returns playground address
+     * Returns playground address.
      * @return playground address
      */
     public Address getPlaygroundAddress() {
@@ -125,7 +141,7 @@ public class Playground {
     }
 
     /**
-     * Returns the price per hour
+     * Returns the price per hour.
      * @return price per hour
      */
     public double getPricePerHour() {
@@ -133,7 +149,7 @@ public class Playground {
     }
 
     /**
-     * Returns the cancellation period
+     * Returns the cancellation period.
      * @return cancellation period
      */
     public int getCancellationPeriod() {
@@ -141,7 +157,7 @@ public class Playground {
     }
 
     /**
-     * Returns the available hours
+     * Returns the available hours.
      * @return available hours
      */
     public String getAvailableHours() {
@@ -149,7 +165,7 @@ public class Playground {
     }
 
     /**
-     * Returns the playground id
+     * Returns the playground id.
      * @return playground id
      */
     public String getPlaygroundID() {
@@ -157,7 +173,7 @@ public class Playground {
     }
 
     /**
-     * Returns playground size
+     * Returns playground size.
      * @return playground size
      */
     public String getSize() {
@@ -165,7 +181,7 @@ public class Playground {
     }
 
     /**
-     * Returns the state of the playground
+     * Returns the state of the playground.
      * @return state of the playground
      */
     public boolean isActivated() {
@@ -173,7 +189,7 @@ public class Playground {
     }
 
     /**
-     * Returns a representation of a playground
+     * Returns a representation of a playground.
      * @return playground info
      */
     @Override
