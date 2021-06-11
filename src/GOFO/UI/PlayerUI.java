@@ -57,12 +57,12 @@ public class PlayerUI {
             System.out.println("\n==>No playground found with ID: " + playgroundID);
             System.out.print("Would you like to try again?(Y/N): ");
             String tryAgain = input.nextLine();
-            while (!tryAgain.equals("Y") && !tryAgain.equals("N")) {
+            while (!tryAgain.equalsIgnoreCase("Y") && !tryAgain.equalsIgnoreCase("N")) {
                 System.out.println("Invalid input!");
                 System.out.print("Enter Y or N: ");
                 tryAgain = input.nextLine();
             }
-            if (tryAgain.equals("N")) {
+            if (tryAgain.equalsIgnoreCase("N")) {
                 mainMenu();
             }
             else {
