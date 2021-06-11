@@ -149,11 +149,14 @@ public class GoFo {
      * @param playgroundOwnerID playground owner id or empty String.
      * @return playgrounds if found otherwise empty ArrayList.
      */
-    public static ArrayList<Playground> getPlaygrounds(String playgroundOwnerID) {
+    public static ArrayList<Playground> getPlaygrounds(String playgroundOwnerID, boolean activated) {
         ArrayList<Playground> ownerPlaygrounds = new ArrayList<>();
         if (playgroundOwnerID.equals("")) {
             for (Playground playground: playgrounds.values()) {
-                if (!playground.isActivated()) {
+                if (!playground.isActivated() && !activated) {
+                    ownerPlaygrounds.add(playground);
+                }
+                else if (playground.isActivated() &&  activated) {
                     ownerPlaygrounds.add(playground);
                 }
             }
@@ -203,17 +206,30 @@ public class GoFo {
 
     /**
      * Add a new booking to the database
-     * @param bookingID booking id
      * @param price price of the booking
      * @param timeSlot timeSlot object
      */
-    public static void addBooking(String bookingID, double price, TimeSlot timeSlot) {
+    public static void addBooking(double price, TimeSlot timeSlot) {
+        String bookingID = extractBookingID(timeSlot);
         bookingCosts.put(bookingID, price);
         bookingDetails.put(bookingID, timeSlot);
-        playgrounds.get(timeSlot.getPlaygroundID()).setActivated(true);
         timeSlot.setBooked(true);
         System.out.println("Playground booked successfully");
     }
+
+    /**
+     * Build a bookingID in the format:
+     * playgroundID+day+month+year+startHour+endHour.
+     * @param timeSlot timeslot
+     * @return booking id
+     */
+    private static String extractBookingID(TimeSlot timeSlot) {
+        return timeSlot.getPlaygroundID() +
+                timeSlot.getDay() + timeSlot.getMonth() +
+                timeSlot.getYear() + timeSlot.getStartHour() +
+                timeSlot.getEndHour();
+    }
+
 
     /**
      * Get a booking info
@@ -222,10 +238,9 @@ public class GoFo {
      */
     public static ArrayList<TimeSlot> getBookingInfo(String playerId) {
         ArrayList<TimeSlot> timeSlots = new ArrayList<>();
-        for (String bookingID: bookingDetails.keySet()) {
-            if (bookingID.substring(0, 14).equals(playerId)) {
-                timeSlots.add(bookingDetails.get(bookingID));
-            }
+        for (TimeSlot timeSlot: bookingDetails.values()) {
+            if (timeSlot.getBookedTo().equals(playerId))
+                timeSlots.add(timeSlot);
         }
         return timeSlots;
     }
@@ -242,5 +257,15 @@ public class GoFo {
             return playgrounds.get(playgroundID);
         }
         return null;
+    }
+
+    /**
+     * Checks if for a given timeslot the playground is booked.
+     * @param timeSlot timeslot
+     * @return true if booked and false otherwise
+     */
+    public static boolean isBooked(TimeSlot timeSlot) {
+        String bookingID = extractBookingID(timeSlot);
+        return bookingDetails.containsKey(bookingID);
     }
 }

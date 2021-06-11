@@ -14,7 +14,6 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class PlayerUI {
-    private static int myBookings = 0;
     private final Player player;
     private final String playerId;
 
@@ -212,7 +211,7 @@ public class PlayerUI {
      * Return the bookings of the player
      */
     private void viewBookings() {
-        ArrayList<TimeSlot> bookings = new ArrayList<>();
+        ArrayList<TimeSlot> bookings;
         bookings = GoFo.getBookingInfo(playerId);
         if (!bookings.isEmpty()) {
             for (TimeSlot timeSlot: bookings) {
@@ -243,11 +242,11 @@ public class PlayerUI {
                 String city = input.nextLine();
                 playgrounds = GoFo.filterByCity(city);
                 if (playgrounds.isEmpty()) {
-                    System.out.println("No playground found in " + city);
+                    System.out.println("\nNo playground found in " + city + "\n");
                     bookPlayground();
                 }
             }
-            case 2 -> playgrounds = GoFo.getPlaygrounds("");
+            case 2 -> playgrounds = GoFo.getPlaygrounds("", true);
         }
 
 
@@ -285,6 +284,14 @@ public class PlayerUI {
                 System.out.print("Playground ID: ");
                 String playgroundId = input.nextLine();
 
+                while (GoFo.getPlaygroundInfo(playgroundId) == null) {
+                    System.out.println("Playground with ID: " + playgroundId +
+                            " is not found!");
+                    System.out.println("Choose from the filtered results.");
+                    System.out.print("Playground ID: ");
+                    playgroundId = input.nextLine();
+                }
+
                 System.out.println("Fill in these required information");
                 System.out.print("Day of booking: ");
                 int day = input.nextInt();
@@ -296,13 +303,19 @@ public class PlayerUI {
                 TimeSlot timeSlot = new TimeSlot(day, month, year,
                         startHour, endHour, playerId, playgroundId);
 
-                double price = calculatePrice(playgroundId, startHour, endHour);
-                System.out.println("Price is: " + price);
+                if (GoFo.isBooked(timeSlot)) {
+                    System.out.println("\nThe playground is booked for the timeslot given!");
 
-                if(player.getEwallet().withdraw(price)) {
-                    GoFo.addBooking(playerId+myBookings, price, timeSlot);
-                    myBookings++;
                 }
+                else {
+                    double price = calculatePrice(playgroundId, startHour, endHour);
+                    System.out.println("Price is: " + price);
+
+                    if(player.getEwallet().withdraw(price)) {
+                        GoFo.addBooking(price, timeSlot);
+                    }
+                }
+
             }
             else {
                 System.out.println("No playground was found within those time slots.");
